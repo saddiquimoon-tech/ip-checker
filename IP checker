@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>IP Checker</title>
+
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background: #f4f6ff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.card {
+  background: #fff;
+  width: 90%;
+  max-width: 400px;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+h2 {
+  text-align: center;
+  color: #3f51b5;
+}
+
+.row {
+  background: #eef1ff;
+  margin: 10px 0;
+  padding: 10px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+}
+
+button {
+  width: 100%;
+  padding: 12px;
+  margin-top: 15px;
+  border: none;
+  border-radius: 8px;
+  background: #3f51b5;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #303f9f;
+}
+</style>
+</head>
+
+<body><body onload="getIP()">
+
+
+<div class="card">
+  <h2>Mr saddique ip Checker</h2>
+
+  <div class="row"><span>IP Address:</span><span id="ip">--</span></div>
+  <div class="row"><span>Country:</span><span id="country">--</span></div>
+  <div class="row"><span>Region:</span><span id="region">--</span></div>
+  <div class="row"><span>City:</span><span id="city">--</span></div>
+  <div class="row"><span>ISP:</span><span id="isp">--</span></div>
+
+  <button onclick="getIP()">Submit</button>
+</div>
+
+<script>
+function getIP() {
+  fetch("https://ipwho.is/")
+    .then(res => res.json())
+    .then(data => {
+      if (data.success === false) {
+        alert("IP detect nahi ho rahi");
+        return;
+      }
+
+      document.getElementById("ip").innerText = data.ip;
+      document.getElementById("country").innerText = data.country;
+      document.getElementById("region").innerText = data.region;
+      document.getElementById("city").innerText = data.city;
+      document.getElementById("isp").innerText = data.connection.isp;
+
+    })
+    .catch(() => {
+      alert("Network / fetch issue");
+    });
+}
+</script>
+
+
+</body>
+</html>
